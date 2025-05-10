@@ -3,9 +3,16 @@ import argparse
 from .TwitchSync import TwitchSync
 from .StreamsyncConfig import StreamsyncConfig
 
-CURRENT_VERSION = '%(prog)s v2.1.4'
+CURRENT_VERSION = '%(prog)s v2.1.5'
 
-def main_cli():    
+def main_cli():
+    try:
+        _main_cli()
+    except KeyboardInterrupt:
+        print('\nInterrupted by user, exiting...')
+        sys.exit(130)
+
+def _main_cli():    
     parser = argparse.ArgumentParser(prog='twitchsync', description='Sync Twitch clips with other streamers', usage='twitchsync [--version] [-v] clip_url [streamers ...]')
     parser.add_argument('clip_url', nargs="?", default=None, help='Clip URL/Clip Slug/VOD Timestamp URL')
     parser.add_argument('streamers', nargs='*', default=None, help='Space separated list of streamers to get timestamps for')
