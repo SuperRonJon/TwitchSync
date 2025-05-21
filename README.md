@@ -17,13 +17,33 @@ Supported input formats:
 - Timestamped vod URL: `https://www.twitch.tv/videos/2448294467?t=6h42m42s`
 
 ## Installation
+
+### Windows 
+To install with python, run
 `pip install twitchsync`
+
+and then it can be run with 
+`python -m twitchsync clip_url/slug/vod_timestamp_url streamer1 streamer2 streamer3`
+
+or download the latest release's pre-compiled binary
+
+[Windows exe download](https://github.com/SuperRonJon/TwitchSync/releases/latest/download/twitchsync-windows.exe)
+
+[Linux binary download](https://github.com/SuperRonJon/TwitchSync/releases/latest/download/twitchsync-linux)
+
+### Unix
 
 For Mac & Linux there is an easy install script that will install the command to a private venv and symlink it onto your path for easy use. Requires python to be installed.
 
 ```
 sh -c "$(curl -fsSL https://raw.githubusercontent.com/SuperRonJon/TwitchSync/master/install-twitchsync-linux.sh)"
 ```
+
+or install manually in a python environment with
+
+`pip install twitchsync`
+
+Or use the pre-compiled binary for linux.
 
 ## Requirements
 
