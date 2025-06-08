@@ -1,13 +1,6 @@
 import requests
 
 
-def refresh_token(client_id, client_secret):
-    url = f"https://id.twitch.tv/oauth2/token?client_id={client_id}&client_secret={client_secret}&grant_type=client_credentials"
-    request = requests.post(url)
-    response = request.json()
-    return response['access_token']
-
-
 class TwitchClient:
     def __init__(self, streamsync_config):
         self.streamsync_config = streamsync_config
@@ -25,7 +18,7 @@ class TwitchClient:
         request = requests.get(url, headers=self.headers())
         if request.status_code == requests.codes.unauthorized:
             print("Invalid oauth token... Generating a new one...")
-            self.oauth_token = refresh_token(self.client_id, self.client_secret)
+            self.oauth_token = self.refresh_token(self.client_id, self.client_secret)
             self.streamsync_config.oauth_token = self.oauth_token
             self.streamsync_config.export_config_file()
             print(f"Generated new oauth token {self.oauth_token} and re-trying request...")
@@ -78,4 +71,9 @@ class TwitchClient:
             return response['data']
         else:
             return None
-
+    @staticmethod
+    def refresh_token(client_id, client_secret):
+        url = f"https://id.twitch.tv/oauth2/token?client_id={client_id}&client_secret={client_secret}&grant_type=client_credentials"
+        request = requests.post(url)
+        response = request.json()
+        return response['access_token']

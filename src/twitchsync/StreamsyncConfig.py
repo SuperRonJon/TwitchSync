@@ -2,7 +2,7 @@ import configparser
 import os
 import sys
 
-from twitchsync.TwitchClient import refresh_token
+from twitchsync.TwitchClient import TwitchClient
 
 
 class StreamsyncConfig:
@@ -119,7 +119,7 @@ class StreamsyncConfig:
         if self.oauth_token is None:
             if not self.quiet:
                 print(f"No oauth token found, generating a new one...")
-            new_token = refresh_token(self.client_id, self.client_secret)
+            new_token = TwitchClient.refresh_token(self.client_id, self.client_secret)
             if new_token is not None:
                 if not self.quiet:
                     print(f"Received new token {new_token} - Updating config file...")
@@ -136,7 +136,7 @@ class StreamsyncConfig:
         self.client_secret = client_secret
         self.oauth_token = oauth_token
         if self.oauth_token is None:
-            new_token = refresh_token(self.client_id, self.client_secret)
+            new_token = TwitchClient.refresh_token(self.client_id, self.client_secret)
             if new_token is not None:
                 if not self.quiet:
                     print(f"Received new token {new_token} - Updating config file...")
